@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calcul de ma moyenne😄😁😚</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+
+        #resultat {
+            text-align: center;
+            font-weight: bold;
+        }
+        body {
+    background-image: url('back-img.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+        }
+    </style>
+</head>
+<body>
+    <h1>Calcul de ta moyenne😚😁😄🤩</h1>
+    <table id="tableauNotes">
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Note</th>
+                <th>Coefficient</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <button onclick="calculerMoyenne()">Calculer ma moyenne</button>
+    <p id="resultat"></p>
+    <script>
+        // Fonction pour ajouter une nouvelle ligne au tableau
+        function ajouterLigne() {
+            const tableau = document.getElementById('tableauNotes').getElementsByTagName('tbody')[0];
+            const nouvelleLigne = tableau.insertRow();
+
+            const celluleMatiere = nouvelleLigne.insertCell(0);
+            const celluleNote = nouvelleLigne.insertCell(1);
+            const celluleCoef = nouvelleLigne.insertCell(2);
+
+            celluleMatiere.innerHTML = '<input type="text" placeholder="Matiere">';
+            celluleNote.innerHTML = '<input type="number" placeholder="Note">';
+            celluleCoef.innerHTML = '<input type="number" placeholder="Coefficient">';
+        }
+
+        // Ajouter initialement 15 lignes
+        for (let i = 0; i < 16; i++) {
+            ajouterLigne();
+        }
+
+        // Fonction pour calculer la moyenne
+        function calculerMoyenne() {
+            const tableau = document.getElementById('tableauNotes');
+            const lignes = tableau.getElementsByTagName('tr');
+            let sommeNotes = 0;
+            let sommeCoefficients = 0;
+
+            for (let i = 1; i < lignes.length; i++) { // On commence à 1 pour éviter l'en-tête
+                const note = parseFloat(lignes[i].cells[1].querySelector('input').value);
+                const coefficient = parseFloat(lignes[i].cells[2].querySelector('input').value);
+                sommeNotes += note * coefficient;
+                sommeCoefficients += coefficient;
+            }
+
+            const moyenne = sommeNotes / sommeCoefficients;
+            document.getElementById('resultat').textContent = `Ta moyenne est de : ${moyenne.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
